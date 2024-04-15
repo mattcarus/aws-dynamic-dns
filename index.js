@@ -101,7 +101,9 @@ async function start() {
       console.log('got ip:', ip);
       if (lastIp == 'NOT SET' || ip !== lastIp) {
         await getAwsCredentials();
-        await updateDNS(ip, zoneId, recordSet, ttl, recordComment);
+        recordSet.split(",").forEach(function (thisRecordSet) {
+          await updateDNS(ip, zoneId, thisRecordSet, ttl, recordComment);
+        }
       }
       lastIp = ip;
   
